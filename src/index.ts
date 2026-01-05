@@ -19,7 +19,8 @@ function createLog(source: Source, log: string) {
   };
 }
 
-app.get("/level1", async (req, res) => {
+app.get("/level1", async (_, res) => {
+  console.log("Executing level 1");
   const logAggregator: Array<ReturnType<typeof createLog>> = [];
   logAggregator.push(createLog(SOURCE.SYNC, "executing sync code"));
 
@@ -50,7 +51,7 @@ app.get("/level1", async (req, res) => {
   await Promise.all([p1, p2, p3]);
 
   res.statusCode = 200;
-  res.write(logAggregator);
+  res.send(logAggregator);
 });
 
 app.listen(3000, () => {
