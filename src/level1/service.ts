@@ -1,5 +1,3 @@
-import { Request, Response } from "express";
-
 type Source = "SYNC" | "TIMEOUT" | "PROMISE_RESOLVE" | "NEXT_TICK";
 
 const SOURCE: Record<Source, Source> = {
@@ -17,8 +15,7 @@ function createLog(source: Source, log: string) {
   };
 }
 
-export async function level1(_: Request, res: Response) {
-  console.log("Executing level 1");
+export async function execute() {
   const logAggregator: Array<ReturnType<typeof createLog>> = [];
   logAggregator.push(createLog(SOURCE.SYNC, "executing sync code"));
 
@@ -47,7 +44,5 @@ export async function level1(_: Request, res: Response) {
   });
 
   await Promise.all([p1, p2, p3]);
-
-  res.statusCode = 200;
-  res.send(logAggregator);
+  return logAggregator;
 }
