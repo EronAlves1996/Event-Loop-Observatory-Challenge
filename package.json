@@ -1,0 +1,25 @@
+{
+  "name": "event-loop-observatory-challenge",
+  "version": "1.0.0",
+  "description": "Welcome to the **Event Loop Observatory**. Your mission is to build a TypeScript/Node.js HTTP server from scratch that exposes specific endpoints to demonstrate and diagnose the internal behavior of the JavaScript Runtime.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EronAlves1996/Event-Loop-Observatory-Challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EronAlves1996/Event-Loop-Observatory-Challenge/issues"
+  },
+  "homepage": "https://github.com/EronAlves1996/Event-Loop-Observatory-Challenge#readme",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
