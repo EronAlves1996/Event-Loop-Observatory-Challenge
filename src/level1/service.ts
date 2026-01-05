@@ -21,6 +21,7 @@ export async function execute() {
 
   const p1 = new Promise<void>((res) =>
     setTimeout(() => {
+      console.log("executing timers phase");
       logAggregator.push(
         createLog(SOURCE.TIMEOUT, "executing from set timeout")
       );
@@ -30,12 +31,16 @@ export async function execute() {
   const p2 = new Promise<void>((res) => {
     res();
   }).then(() => {
+    console.log("executing pending callbacks phase");
+
     logAggregator.push(
       createLog(SOURCE.PROMISE_RESOLVE, "executing from promise resolve")
     );
   });
   const p3 = new Promise<void>((res) => {
     process.nextTick(() => {
+      console.log("executing on next tick phase");
+
       logAggregator.push(
         createLog(SOURCE.NEXT_TICK, "executing from next tick")
       );
