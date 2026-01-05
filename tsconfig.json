@@ -10,7 +10,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "esnext",
-    
+
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -43,5 +43,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "noImplicitAny": true
-  }
+  },
+  "exclude": ["dist"]
 }
