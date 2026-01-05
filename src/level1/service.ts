@@ -1,6 +1,6 @@
 type Source = "SYNC" | "TIMEOUT" | "PROMISE_RESOLVE" | "NEXT_TICK";
 
-const SOURCE: Record<Source, Source> = {
+export const SOURCE: Record<Source, Source> = {
   NEXT_TICK: "NEXT_TICK",
   TIMEOUT: "TIMEOUT",
   PROMISE_RESOLVE: "PROMISE_RESOLVE",
