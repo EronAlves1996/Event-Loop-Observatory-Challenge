@@ -33,19 +33,26 @@ _Goal: Prove you understand the difference between the Call Stack, Macrotasks, a
 5.  **Acceptance Criteria:**
     - Unit test proves the array order in the JSON response matches the required sequence.
 
-### 🟡 Level 2: The Puzzle of Queues (Intermediate)
+### 🟡 Level 2: The Puzzle of Phases
 
-_Goal: Demonstrate control over `setImmediate` vs `setTimeout` in the I/O cycle._
+_Goal: Demonstrate deep understanding of the Event Loop phases (Timers vs. Poll vs. Check) and how dynamic scheduling affects execution order._
 
-1.  **Requirement:** Create an endpoint `GET /level2` that reads a file asynchronously (using `fs.promises.readFile`).
-2.  **Behavior:**
-    - Schedule a `setImmediate`.
-    - Schedule a `setTimeout(..., 0)`.
-    - Log the completion of the file read.
-3.  **Constraint:** You must manipulate the flow so that the file read log occurs _between_ the `setTimeout` and the `setImmediate` logs, despite the file I/O happening in the poll phase.
-4.  **Acceptance Criteria:**
-    - Response includes a string: `"File read completed in the expected phase"`.
-    - Comments in code explain _why_ the order happened based on Event Loop phases.
+1.  **Requirement:** Create an endpoint `GET /level2`.
+2.  **Behavior:** This endpoint must orchestrate three distinct operations and guarantee they log/execute in this specific order:
+    1.  **`setTimeout`** (Timers Phase)
+    2.  **`readFile`** (Poll Phase)
+    3.  **`setImmediate`** (Check Phase)
+3.  **Constraints:**
+    - You **MUST** use `fs.readFile` (Callback style), **NOT** `fs.promises`.
+    - You are strictly forbidden from using `await readFile()`. The file read must be asynchronous.
+    - You **MUST NOT** schedule the `setImmediate` at the very beginning of the function execution.
+4.  **The Challenge:**
+    - In a standard loop, `setImmediate` often runs before `setTimeout`. You must manipulate the scheduling context to force `setImmediate` to wait until _after_ the file I/O cycle completes.
+    - **Hint:** Think about _where_ you call `setImmediate()`. If you schedule it inside a specific callback, you can move it from the "current" check phase to the "next" check phase.
+5.  **Acceptance Criteria:**
+    - The endpoint returns a JSON array (e.g., `["TIMEOUT", "READ_FILE", "IMMEDIATE"]`).
+    - The order is deterministic and matches the requirement exactly.
+    - The solution does not block the main thread (no synchronous `fs.readFileSync`).
 
 ### 🟠 Level 3: The "Freeze" (The Senior Java Context)
 
